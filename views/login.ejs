@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+    <style>
+        .error{
+            color: red;
+            font-style: italic;
+        }
+        #email-error{
+            color: red;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container" >
+        <h1 class="heading">Log In</h1>
+        <% if(locals.data){%>
+            <div class="user" style="color: red;">
+                <h5 style="font-size: 20px;"><%=data%></h5>
+            </div>
+        <%}%>
+        <% if(locals.logout){ %>
+            <div class="logout">
+                <h4 style="font-size: 20px;"><%=logout%></h4>
+            </div>
+        <%}%>
+        <form action="/login" method="post" id="formValidation">
+                <input type="text" name="userName" id="userName" placeholder="User Name" required >
+                <input type="text" name="Email" id="Email" placeholder="Enter Your Email id" required onkeyup="validateEmail()">
+                <span id="email-error"></span>
+                <input type="password" name="Password" id="Password" placeholder="Enter password" required
+                   >
+                   <% if(locals.error){%>
+                    <div class="user" style="color: red;">
+                        <p style="font-size: 20px;"><%=error%></p>
+                    </div>
+                <%}%>
+            <button type="submit" class="btn submit-btn">log In</button>
+
+        </form>
+        <p class="link">Don't have an account?<a href="/signup" class="link">Signup</a></p>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+    <script>
+        $(function(){
+            var $registrationForm = $('#formValidation');
+            if($registrationForm.length){
+                $registrationForm.validate({
+                    rules:{
+                        userName:{
+                            required:true
+                        },
+                        Email:{
+                            required:true,
+                            email:true
+                        },
+                        Password:{
+                            required:true,
+                            pwcheck:true,
+                            minlength:8
+                        }
+                    },
+                    messages:{
+                        userName:{
+                            required:"user name is mandatory"
+                        },
+                        Email:{
+                            required:"Email id is mandatory",
+                            email:"please enter a valid email id"
+                        },
+                        Password:{
+                            required:"password is required"
+                        }
+                    }
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

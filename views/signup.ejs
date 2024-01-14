@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+    <style>
+        .error{
+            color: red;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h1 class="heading">Sugn Up</h1>
+        <% if(locals.data){%>
+            <div class="user" style="color: red;">
+                <h5 style="font-size: 20px;"><%=data%></h5>
+            </div>
+        <%}%>
+            <form action="/signup" method="post" id="formValidation">
+                <input type="text" name="userName" id="userName" placeholder="User Name" required>
+                <input type="email" name="Email" id="Email" placeholder="Enter Your Email id" required
+                    >
+                <input type="password" name="Password" id="Password" placeholder="Enter a Strong password" required
+                    >
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password"
+                    required>
+            <button type="submit" class="btn submit-btn">Sign Up</button>
+        </form>
+        <a href="/" class="link">Back</a>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+    <script>
+        $(function(){
+            var $registrationForm = $('#formValidation');
+            if($registrationForm.length){
+                $registrationForm.validate({
+                    rules:{
+                        userName:{
+                            required:true
+                        },
+                        Email:{
+                            required:true,
+                            email:true,
+                        },
+                        Password:{
+                            required:true,
+                            minlength:8
+                        },
+                        confirmPassword:{
+                            required:true,
+                            equalTo:'#Password'
+                        }
+                    },
+                    messages:{
+                        userName:{
+                            required:"user name is mandatory"
+                        },
+                        Email:{
+                            required:"Email id is mandatory",
+                            email:"please enter a valid email id"
+                        },
+                        Password:{
+                            required:"password is required"
+                        },
+                        confirmPassword:{
+                            required: "confirm your password",
+                             equalTo:" must be same"
+                        }
+                    }
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

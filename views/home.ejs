@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+</head>
+<body>
+         <div class="container">
+                <a href="/logout"><button class="logout">Logt Out</button></a>
+                <h1 class="greeting">hello <%= title %></h1>
+                <h3 class="greeting" style="padding: 10px;">Welcome to My World</h3>
+        </div>
+</body>
+</html>
